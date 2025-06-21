@@ -14,14 +14,17 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Setup Visual Studio environment
+      - name: Set up MSBuild
         uses: microsoft/setup-msbuild@v1.1
 
-      - name: Build solution
-        run: msbuild Temp-Spoofer-LifeTime.sln /p:Configuration=Release /p:Platform=x64
+      - name: Compile spoofer manually
+        shell: cmd
+        run: |
+          for /d %i in ("C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\*") do set MSVCVER=%i
+          "%MSVCVER%\bin\Hostx64\x64\cl.exe" /EHsc main.cpp portable_executable.cpp /Fe:TempSpoofer.exe /link /LIBPATH:lib proxine.lib
 
       - name: Upload built executable
         uses: actions/upload-artifact@v4
         with:
           name: TempSpoofer-Release
-          path: Temp-Spoofer-LifeTime\x64\Release\*.exe
+          path: TempSpoofer.exe
