@@ -20,8 +20,8 @@ jobs:
       - name: Compile spoofer manually
         shell: cmd
         run: |
-          for /d %i in ("C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\*") do set MSVCVER=%i
-          "%MSVCVER%\bin\Hostx64\x64\cl.exe" /EHsc main.cpp portable_executable.cpp /Fe:TempSpoofer.exe /link /LIBPATH:lib proxine.lib
+          call "C:\Program Files (x86)\Microsoft Visual Studio\2022\Enterprise\Common7\Tools\VsDevCmd.bat"
+          cl.exe /EHsc main.cpp portable_executable.cpp /Fe:TempSpoofer.exe /link /LIBPATH:lib proxine.lib
 
       - name: Upload built executable
         uses: actions/upload-artifact@v4
