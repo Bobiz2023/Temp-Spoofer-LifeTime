@@ -11,17 +11,17 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: Checkout repo
-      uses: actions/checkout@v3
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
-    - name: Setup Visual Studio environment
-      uses: microsoft/setup-msbuild@v1.1
+      - name: Setup Visual Studio environment
+        uses: microsoft/setup-msbuild@v1.1
 
-    - name: Build solution
-      run: msbuild Temp-Spoofer-LifeTime.sln /p:Configuration=Release /p:Platform=x64
+      - name: Build solution
+        run: msbuild Temp-Spoofer-LifeTime.sln /p:Configuration=Release /p:Platform=x64
 
-    - name: Upload built executable
-      uses: actions/upload-artifact@v3
-      with:
-        name: TempSpoofer-Release
-        path: Temp-Spoofer-LifeTime\x64\Release\*.exe
+      - name: Upload built executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: TempSpoofer-Release
+          path: Temp-Spoofer-LifeTime\x64\Release\*.exe
